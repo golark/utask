@@ -1,3 +1,6 @@
+// Package cmdhandler
+// Handles the command passed from the CLI ( package cmd )
+// Sends the requests to the daemon using Rest APIs over a unix socket
 package cmdhandler
 
 import (

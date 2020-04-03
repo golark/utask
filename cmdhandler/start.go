@@ -10,10 +10,9 @@ import (
 )
 
 const (
-	MinTimeMins     int    = 1
-	DefaultTimeMins string = "25"
+	MinTimeMins     int    = 1    // minimum time for a single shot utask
+	DefaultTimeMins string = "25" // default time if no duration is specified during CLI
 )
-
 
 // Start a single shot utask timer by calling daemon Rest Api over unix socket
 // pass timer duration, task name and note to the daemon
