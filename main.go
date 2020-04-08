@@ -31,9 +31,8 @@ func init() {
 
 	// step 2 - viper config
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath("src/github.com/golark/utaskdaemon/")
 	viper.AddConfigPath("./")
-	viper.SetConfigName("config.yaml")
+	viper.SetConfigName("utaskcfg.yaml")
 
 	err := viper.ReadInConfig()
 	if err != nil {

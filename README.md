@@ -1,4 +1,4 @@
-#![utasklogo](media/utasklogo_withprint.png)
+![utasklogo](media/utasklogo_withprint.png)
  
  [![Go Report Card](https://goreportcard.com/badge/github.com/golark/utask)](https://goreportcard.com/report/github.com/golark/utask)
 
@@ -30,11 +30,11 @@
  
  ## Usage
  
- ` $ utask start -t=30 -n=<taskname> -m=<tasknotes> # starts 30 minute utask and registers the task name/notes`
+ ` $ utask start -t=30 -p=<task/project name> -m=<notes> # starts 30 minute utask and registers the task name/notes`
  
- ` $ utask start                                    # starts default 25 minute utask timer`
+ ` $ utask start                                         # starts default 25 minute utask timer`
 
- ` $ utask help                                     # further info about usage and commands`
+ ` $ utask help                                          # further info about usage and commands`
  
  ## Contribution
  

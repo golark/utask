@@ -30,7 +30,7 @@ var startCmd = &cobra.Command{
 	Long: `A single shot utask timer For example
      utask start            # starts default 25 minute utask timeir
      utask start --timer=30 # starts 30 minute utask timer:
-     utask start -t=30 -n=<taskname> -m=<tasknotes> # starts 30 minute utask and registers the task name/notes 
+     utask start -t=30 -p=<task/project name> -n=<notes> # starts 30 minute utask and registers the task name/notes 
 
      Minimum time interval is 1 minutes`,
 	Run: func(cmd *cobra.Command, args []string) {
@@ -80,7 +80,7 @@ func init() {
 
 	// add flags
 	startCmd.Flags().StringP("timer", "t", cmdhandler.DefaultTimeMins, "(optional) minutes")
-	startCmd.Flags().StringP("taskname", "n", "workinghard", "(optional) task name for database")
-	startCmd.Flags().StringP("tasknote", "m", "keepitup", "(optional) task notes for database")
+	startCmd.Flags().StringP("taskname", "p", "workinghard", "(optional) task name for database")
+	startCmd.Flags().StringP("tasknote", "n", "keepitup", "(optional) task notes for database")
 
 }
