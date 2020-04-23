@@ -35,16 +35,18 @@ var rootCmd = &cobra.Command{
 	Use:   "utask",
 	Short: "utask is a methodology for tackling complex problems with focused tasks",
 	Long: `utask cli tool is a companion for micro task methodology. 
-Complex tasks are first divided into self contained micro tasks
-Each task is tackled within the utask time frame - focused bursts of tasks
-Once the timer expires the user is reminded to take a break before tackling new micro tasks.
-Tasks tackled are saved onto database for the user to refer to in the future.
-example: $ utask start                       # starts 25 minute utask
-         $ utask start -t=30                 # starts 30 minute utask
-         $ utask start -n=taskname -m=notes  # starts 25 minute utask and saves the task name and notes`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { fmt.Println("root command") },
+This tool aims to help keep a high level of concentration while working on the task and to be mindful of taking breaks between workloads
+
+usage:  $ utask start        # starts 25 minute utask but don't log to database
+        $ utask start -t=30  # starts 30 minute utask but don't log to database'
+
+        # start utask, log project, task name and notes
+        $ utask start -p=<project name> -t=<task name> -n=<notes>  
+
+Method: 
+* Dissect complex projects into self contained bite-sized chunks of work called micro tasks
+* Micro Tasks are focused bursts of incremental work to eventually lead to project completion
+* Each Micro task can be registered with this tool to keep a log of all the micro tasks that contributed to the project `,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

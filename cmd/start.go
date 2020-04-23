@@ -28,9 +28,9 @@ var startCmd = &cobra.Command{
 	Use:   "start",
 	Short: "starts utask timer ",
 	Long: `A single shot utask timer For example
-     utask start            # starts default 25 minute utask timeir
+     utask start            # starts default 25 minute utask timer
      utask start --timer=30 # starts 30 minute utask timer:
-     utask start -t=30 -p=<task/project name> -n=<notes> # starts 30 minute utask and registers the task name/notes 
+     utask start -d=30 -p=<project name> -t=<task name> -n=<notes> # starts 30 minute utask and logs the utask to database
 
      Minimum time interval is 1 minutes`,
 	Run: func(cmd *cobra.Command, args []string) {
@@ -48,25 +48,29 @@ var startCmd = &cobra.Command{
 			return
 		}
 
+		// step 2 - get project name from flags - if no option is provided, default will be used
+		projName, err := cmd.Flags().GetString("projectname")
+		if err != nil {
+			log.WithFields(log.Fields{"err": err}).Error("can not get a valid projectname - continue without")
+		}
+
 		// step 2 - get task name from flags - if no option is provided, default will be used
 		taskName, err := cmd.Flags().GetString("taskname")
 		if err != nil {
-			log.WithFields(log.Fields{"err": err}).Error("can not get a valid taskname- exiting")
-			return
+			log.WithFields(log.Fields{"err": err}).Error("can not get a valid taskname- continue without")
 		}
 
 		// step 3 - get task note from flags - if no option is provided, default will be used
 		taskNote, err := cmd.Flags().GetString("tasknote")
 		if err != nil {
-			log.WithFields(log.Fields{"err": err}).Error("can not get a valid tasknote- exiting")
-			return
+			log.WithFields(log.Fields{"err": err}).Error("can not get a valid tasknote- continue without")
 		}
 
 		// trace the request
 		log.WithFields(log.Fields{"time": iTimer, "name": taskName, "note": taskNote}).Trace("new utask")
 
 		// step 4 - start single shot utask
-		err = cmdhandler.Start(iTimer, taskName, taskNote)
+		err = cmdhandler.Start(iTimer, projName, taskName, taskNote)
 		if err != nil {
 			log.Error("couldn't start the utask, please check input parameters and make sure daemon is running")
 		}
@@ -79,8 +83,9 @@ func init() {
 	rootCmd.AddCommand(startCmd)
 
 	// add flags
-	startCmd.Flags().StringP("timer", "t", cmdhandler.DefaultTimeMins, "(optional) minutes")
-	startCmd.Flags().StringP("taskname", "p", "workinghard", "(optional) task name for database")
-	startCmd.Flags().StringP("tasknote", "n", "keepitup", "(optional) task notes for database")
+	startCmd.Flags().StringP("duration", "d", cmdhandler.DefaultTimeMins, "(optional) utask duration in minutes")
+	startCmd.Flags().StringP("projectname", "p", "", "(optional) project name for utask")
+	startCmd.Flags().StringP("taskname", "t", "utask", "(optional) task name for utask")
+	startCmd.Flags().StringP("tasknote", "n", "keepitup", "(optional) task notes for utask")
 
 }
