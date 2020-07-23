@@ -17,11 +17,11 @@ const (
 // Start a single shot utask timer by calling daemon Rest Api over unix socket
 // pass timer duration, task name and note to the daemon
 // return error if unsuccessful
-func Start(iTimer int, projName string, taskName string, taskNote string) error {
+func Start(taskDuration int, projName string, taskName string, taskNote string) error {
 
 	// step 1 - check that the time is not less than the minimum
-	if iTimer < MinTimeMins {
-		log.WithFields(log.Fields{"timer": iTimer, "minimum time": MinTimeMins}).Error("Time can not be less than minimum time")
+	if taskDuration < MinTimeMins {
+		log.WithFields(log.Fields{"timer": taskDuration, "minimum time": MinTimeMins}).Error("Time can not be less than minimum time")
 		return errors.New("time can not be less than the minimum")
 	}
 
@@ -42,7 +42,7 @@ func Start(iTimer int, projName string, taskName string, taskNote string) error 
 	}
 
 	// step 4 - request daemon to star the timer
-	_, err = httpc.Get("http://localhost/start/" + strconv.Itoa(iTimer) + "/" + projName + "/" + taskName + "/" + taskNote)
+	_, err = httpc.Get("http://localhost/start/" + strconv.Itoa(taskDuration) + "/" + projName + "/" + taskName + "/" + taskNote)
 	if err != nil {
 		log.WithFields(log.Fields{"err": err}).Error("request to daemon returned err")
 		return errors.New("can't connect to daemon")
@@ -50,3 +50,4 @@ func Start(iTimer int, projName string, taskName string, taskNote string) error 
 
 	return nil
 }
+

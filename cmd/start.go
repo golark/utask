@@ -36,7 +36,7 @@ var startCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		// step 1 - get timer from flags - if no option is provided, default will be used
-		sTimer, err := cmd.Flags().GetString("timer")
+		sTimer, err := cmd.Flags().GetString("duration")
 		if err != nil {
 			log.WithFields(log.Fields{"err": err}).Error("can not get timer flag - exiting")
 			return

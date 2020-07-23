@@ -42,5 +42,6 @@ func init() {
 }
 
 func main() {
+	// start listening for commands
 	cmd.Execute()
 }
